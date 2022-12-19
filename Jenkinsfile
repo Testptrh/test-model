@@ -3,13 +3,12 @@ pipeline {
   stages {
     stage('version') {
       steps {
-        sh 'python3 --version'
+        cd trainer
+        ls
       }
     }
     stage('hello') {
       steps {
-        cd trainer
-        ls
         sh 'python3 test.py'
       }
     }
