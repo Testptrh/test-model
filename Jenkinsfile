@@ -13,8 +13,8 @@ pipeline {
     }
     stage('hello') {
       steps {
-        cd trainer
-        sh 'python3 test.py'
+        #!/bin/sh
+        python /var/lib/jenkins/workspace/cloud-pipeline/trainer/task.py
       }
     }
   }
