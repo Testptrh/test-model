@@ -9,6 +9,7 @@ pipeline {
     stage('hello') {
       steps {
         cd trainer
+        ls
         sh 'python3 test.py'
       }
     }
