@@ -4,6 +4,10 @@ pipeline {
     stage('version') {
       steps {
         cd trainer
+      }
+    }
+    stage('ls') {
+      steps {
         ls
       }
     }
