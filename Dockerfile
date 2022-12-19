@@ -4,4 +4,3 @@ RUN pip install cloudml-hypertune
 COPY trainer /trainer
 ENTRYPOINT ["python", "-m", "trainer.task"]
 
-# test
