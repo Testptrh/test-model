@@ -3,12 +3,12 @@ pipeline {
   stages {
     stage('version') {
       steps {
-        cd trainer
+        sh 'cd trainer'
       }
     }
     stage('ls') {
       steps {
-        ls
+        sh 'ls'
       }
     }
     stage('hello') {
