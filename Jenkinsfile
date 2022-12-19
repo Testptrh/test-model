@@ -4,13 +4,7 @@ pipeline {
     stage('test') {
       steps {
         sh '''
-             ls
-             pwd
-             
-             PROJECT_ID='wave46-mihaiadrian'
-             IMAGE_URI="gcr.io/$PROJECT_ID/titanic:model"
-             docker build ./ -t $IMAGE_URI
-             docker push $IMAGE_URI
+             python '/var/lib/jenkins/workspace/cloud-pipeline/trainer/task.py'
         '''
       }
     }
