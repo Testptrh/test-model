@@ -4,7 +4,7 @@ pipeline {
     stage('test') {
       steps {
         sh '''
-             python '/var/lib/jenkins/workspace/cloud-pipeline/trainer/task.py'
+             python 'test.py'
         '''
       }
     }
