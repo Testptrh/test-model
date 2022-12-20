@@ -12,13 +12,13 @@ pipeline {
             }
         }
         
-    stage('Test') {
+    stage('build') {
             steps {
                 sh 'docker build ./ -t $IMAGE_URI'
             }
         }
     
-    stage('Test') {
+    stage('push') {
             steps {
                 sh 'docker push $IMAGE_URI'
             }
