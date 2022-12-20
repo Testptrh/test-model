@@ -1,23 +1,25 @@
 pipeline {
-  agent any
-  stages {
-    stage('variables') {
-      steps {
-        sh '''
-                PROJECT_ID='wave46-mihaiadrian'
-                IMAGE_URI="$PROJECT_ID/titanic:model"
-           '''
-      }
-    } 
-    stage('cleanup') {
-      steps {
-        sh 'docker system prune -a --volumes --force'
-      }
+    agent { dockerfile true }
+    stages {
+        stage('Test') {
+            steps {
+                sh '''
+                        PROJECT_ID='wave46-mihaiadrian'
+                        IMAGE_URI="gcr.io/$PROJECT_ID/titanic:model"
+                   '''
+            }
+        }
+        
+    stage('build') {
+            steps {
+                sh 'docker build -t $IMAGE_URI'
+            }
+        }
+    
+    stage('push') {
+            steps {
+                sh 'docker push $IMAGE_URI'
+            }
+        }
     }
-    stage('build image') {
-      steps {
-        sh 'docker build ./ -t wave46-mihaiadrian/titanic:model'
-      }
-    }
-  }
 }
