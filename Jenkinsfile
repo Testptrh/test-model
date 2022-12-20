@@ -1,32 +1,27 @@
 pipeline {
-  agent any
-  stages {
-    stage('variables') {
-      agent { docker 'openjdk:8' }
-      steps {
-        sh '''
-            PROJECT_ID='wave46-mihaiadrian'
-            IMAGE_URI="gcr.io/$PROJECT_ID/titanic:model"
-        '''
-      }
+    agent {
+        docker { image 'tf2-gpu.2-5' }
     }
+    stages {
+        stage('Test') {
+            steps {
+                sh '''
+                        PROJECT_ID='wave46-mihaiadrian'
+                        IMAGE_URI="gcr.io/$PROJECT_ID/titanic:model"
+                   '''
+            }
+        }
+        
+    stage('Test') {
+            steps {
+                sh 'docker build ./ -t $IMAGE_URI'
+            }
+        }
     
-    stage('build') {
-      agent { docker 'openjdk:8' }
-      steps {
-        sh '''
-          docker build ./ -t $IMAGE_URI
-        '''
-      }
+    stage('Test') {
+            steps {
+                sh 'docker push $IMAGE_URI'
+            }
+        }
     }
-    
-    stage('push') {
-      agent { docker 'openjdk:8' }
-      steps {
-        sh '''
-          docker push $IMAGE_URI
-        '''
-      }
-    }
-  }
 }
