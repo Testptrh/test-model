@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        docker { image 'tf2-gpu.2-5' }
-    }
+    agent { dockerfile true }
     stages {
         stage('Test') {
             steps {
