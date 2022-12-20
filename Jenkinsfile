@@ -1,19 +1,28 @@
 pipeline {
   agent any
   stages {
-    stage('version') {
+    stage('variables') {
       steps {
-        sh 'cd trainer'
+        sh '''
+          PROJECT_ID='wave46-mihaiadrian'
+          IMAGE_URI="gcr.io/$PROJECT_ID/titanic:model"
+        '''
       }
     }
-    stage('ls') {
+    
+    stage('build') {
       steps {
-        sh 'ls'
+        sh '''
+          docker build ./ -t $IMAGE_URI
+        '''
       }
     }
-    stage('hello') {
+    
+    stage('push') {
       steps {
-        sh 'python3 /var/lib/jenkins/workspace/cloud-pipeline/trainer/task.py'
+        sh '''
+          docker push $IMAGE_URI
+        '''
       }
     }
   }
