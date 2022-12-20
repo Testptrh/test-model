@@ -1,25 +1,32 @@
 pipeline {
-    agent { dockerfile true }
-    stages {
-        stage('Test') {
-            steps {
-                sh '''
-                        PROJECT_ID='wave46-mihaiadrian'
-                        IMAGE_URI="gcr.io/$PROJECT_ID/titanic:model"
-                   '''
-            }
-        }
-        
-    stage('build') {
-            steps {
-                sh 'docker build ./ -t $IMAGE_URI'
-            }
-        }
-    
-    stage('push') {
-            steps {
-                sh 'docker push $IMAGE_URI'
-            }
-        }
+  agent any
+  stages {
+    stage('test') {
+      steps {
+        sh '''
+          gcloud compute zones list
+        '''
+      }
     }
+  }
 }
+
+
+pipeline {
+  agent any
+  stages {
+    stage('version') {
+      steps {
+        sh 'python3 --version'
+      }
+    }
+    stage('hello') {
+      steps {
+        sh 'python3 hello.py'
+      }
+    }
+  }
+}
+
+
+sh 'python3 /var/lib/jenkins/workspace/cloud-pipeline/trainer/task.py'  
