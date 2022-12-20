@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-    stage('test') {
+    stage('variables') {
       agent { docker 'openjdk:8' }
       steps {
         sh '''
@@ -11,7 +11,7 @@ pipeline {
       }
     }
     
-    stage('test') {
+    stage('build') {
       agent { docker 'openjdk:8' }
       steps {
         sh '''
@@ -20,7 +20,7 @@ pipeline {
       }
     }
     
-    stage('test') {
+    stage('push') {
       agent { docker 'openjdk:8' }
       steps {
         sh '''
