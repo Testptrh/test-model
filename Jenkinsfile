@@ -16,7 +16,7 @@ pipeline {
     }
     stage('build image') {
       steps {
-        sh 'docker build ./ -t $IMAGE_URI'
+        sh 'docker build ./ -t wave46-mihaiadrian/titanic:model'
       }
     }
   }
