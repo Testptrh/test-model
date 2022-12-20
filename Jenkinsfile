@@ -12,7 +12,7 @@ pipeline {
         
     stage('build') {
             steps {
-                sh 'docker build ./ -t $IMAGE_URI'
+                sh 'docker build -t $IMAGE_URI'
             }
         }
     
