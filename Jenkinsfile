@@ -15,6 +15,12 @@ pipeline {
                 sh 'docker build -t $IMAGE_URI'
             }
         }
+        
+    stage('login') {
+            steps {
+                sh 'gcloud auth configure-docker gcr.io'
+            }
+        }
     
     stage('push') {
             steps {
