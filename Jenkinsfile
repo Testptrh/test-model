@@ -10,9 +10,9 @@ pipeline {
             }
         }
         
+        
+        docker.image('user/image:version').inside("""--entrypoint=''""") { 
     stage('build') {
-        docker.image('user/image:version').inside("""--entrypoint=''""") {     
-                
             steps {
                   sh 'docker build -t $IMAGE_URI'
             }
