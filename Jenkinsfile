@@ -10,7 +10,6 @@ pipeline {
       }
     }
     
-    docker.image('user/image:version').inside("""--entrypoint=''""") {
       stage('build') {
       steps {
         sh '''
@@ -18,7 +17,6 @@ pipeline {
            '''
       }
     }
-  }
   
     stage('auth') {
       steps {
