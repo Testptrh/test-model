@@ -2,31 +2,37 @@ pipeline {
   agent { dockerfile true }
   stages {
     stage('Test') {
-      docker.image('user/image:version').inside("""-entrypoint=''""") {
-        steps {
+      steps {
         sh '''
           PROJECT_ID='wave46-mihaiadrian'
           IMAGE_URI="gcr.io/$PROJECT_ID/titanic:model"
            '''
-        }
-        
-        steps {
+      }
+    }
+    
+    docker.image('user/image:version').inside("""--entrypoint=''""") {
+      stage('build') {
+      steps {
         sh '''
           docker build -t $IMAGE_URI
            '''
-        }
-        
-        steps {
+      }
+    }
+  }
+  
+    stage('auth') {
+      steps {
         sh '''
           gcloud auth configure-docker gcr.io
            '''
-        }
-        
-        steps {
+      }
+    }
+    
+    stage('push') {
+      steps {
         sh '''
           docker push $IMAGE_URI
            '''
-        }
       }
     }
   }
