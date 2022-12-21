@@ -12,7 +12,9 @@ pipeline {
         
     stage('build') {
             steps {
-                sh 'docker build -t $IMAGE_URI'
+                docker.image('user/image:version').inside("""--entrypoint=''""") {
+                    sh 'docker build -t $IMAGE_URI'
+                }  
             }
         }
         
