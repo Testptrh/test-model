@@ -11,10 +11,10 @@ pipeline {
         }
         
     stage('build') {
+        docker.image('user/image:version').inside("""--entrypoint=''""") {     
+                
             steps {
-                docker.image('user/image:version').inside("""--entrypoint=''""") {
-                    sh 'docker build -t $IMAGE_URI'
-                }  
+                  sh 'docker build -t $IMAGE_URI'
             }
         }
         
@@ -30,4 +30,5 @@ pipeline {
             }
         }
     }
+        }
 }
