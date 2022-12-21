@@ -18,20 +18,6 @@ pipeline {
       }
     }
   
-    stage('auth') {
-      steps {
-        sh '''
-          gcloud auth configure-docker gcr.io
-           '''
-      }
-    }
-    
-    stage('push') {
-      steps {
-        sh '''
-          docker push $IMAGE_URI
-           '''
-      }
-    }
+   
   }
 }
