@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
     stages {
@@ -13,6 +14,9 @@ pipeline {
             } 
         }
         stage('Deploy to GKE') {
+            steps {
+                sh 'sudo apt-get install google-cloud-sdk-gke-gcloud-auth-plugin'
+            }
             steps {
                 sh 'gcloud container clusters get-credentials titanic-cluster \
                       --region europe-west4 \
