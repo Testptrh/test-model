@@ -19,9 +19,13 @@ pipeline {
                       --project wave46-mihaiadrian'
             }
         }
-        stage('Apply YAML') {
+        stage('Apply deployment') {
             steps {
                 sh 'kubectl apply -f deployment.yaml'
+            }
+        }
+        stage('Apply service') {
+            steps {
                 sh 'kubectl apply -f service.yaml'
             }
         }
