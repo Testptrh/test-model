@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
     stages {
@@ -12,18 +11,6 @@ pipeline {
             steps {
                 sh 'docker push gcr.io/wave46-mihaiadrian/titanic:cicd'
             } 
-        }
-        stage('install') {
-            steps {
-                sh 'sudo apt-get install google-cloud-sdk-gke-gcloud-auth-plugin'
-            } 
-        }
-        stage('Deploy to GKE') {
-            steps {
-                sh 'gcloud container clusters get-credentials titanic-cluster \
-                      --region europe-west4 \
-                      --project wave46-mihaiadrian'
-            }
         }
         stage('Deploy on port') {
             steps {
