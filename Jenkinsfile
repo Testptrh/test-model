@@ -9,21 +9,26 @@ pipeline {
         }
         stage('Push image') {
             steps {
-                // Push the image to a Docker registry (e.g., Docker Hub or Google Container Registry)
-                    sh 'docker push gcr.io/wave46-mihaiadrian/titanic:cicd'
-                }
-            }
+                sh 'docker push gcr.io/wave46-mihaiadrian/titanic:cicd'
+            } 
         stage('Deploy to GKE') {
             steps {
-                // Deploy the container image to the GKE cluster
-                    kubernetesDeploy(
-                    configs: '*.yaml',
-                    deployTimeout: 15,
-                    namespace: 'cicd1',
-                    containerTemplate: 'ci-cd-model:v1',
-                    quiet: true
-                    )
-                }
+                sh 'gcloud container clusters get-credentials titanic-cluster \
+                      --region europe-west4 \
+                      --project wave46-mihaiadrian'
             }
         }
+        stage('Apply YAML') {
+            steps {
+                sh 'kubectl apply -f deployment.yaml'
+                sh 'kubectl apply -f service.yaml'
+            }
+        }
+        stage('Deploy to GKE') {
+            steps {
+                sh 'kubectl expose deployment titanic-app --name=titanic-service-cicd --type=LoadBalancer --port 80 --target-port 8000'
+            }
+        }
+        }
     }
+}
