@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Deploy on port') {
             steps {
-                sh 'kubectl expose deployment titanic-app --name=titanic-service-cicd --type=LoadBalancer --port 80 --target-port 8000'
+                sh 'gcloud container clusters get-credentials titanic-cluster'
             }
         }
         
