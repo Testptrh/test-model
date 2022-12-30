@@ -1,7 +1,6 @@
 pipeline {
     agent {
         kubernetes {
-            cloud 'google-gke'
             serviceAccount 'jenkins@wave46-mihaiadrian.iam.gserviceaccount.com'
         }
 
