@@ -11,6 +11,7 @@ pipeline {
             steps {
                 sh 'docker push gcr.io/wave46-mihaiadrian/titanic:cicd'
             } 
+        }
         stage('Deploy to GKE') {
             steps {
                 sh 'gcloud container clusters get-credentials titanic-cluster \
@@ -29,6 +30,6 @@ pipeline {
                 sh 'kubectl expose deployment titanic-app --name=titanic-service-cicd --type=LoadBalancer --port 80 --target-port 8000'
             }
         }
-        }
+        
     }
 }
