@@ -24,7 +24,7 @@ pipeline {
                 sh 'kubectl apply -f service.yaml'
             }
         }
-        stage('Deploy to GKE') {
+        stage('Deploy on port') {
             steps {
                 sh 'kubectl expose deployment titanic-app --name=titanic-service-cicd --type=LoadBalancer --port 80 --target-port 8000'
             }
