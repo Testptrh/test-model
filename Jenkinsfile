@@ -1,12 +1,5 @@
-
 pipeline {
-    agent {
-        kubernetes {
-            cloud 'google-cloud'
-            serviceAccount 'jenkins@wave46-mihaiadrian.iam.gserviceaccount.com'
-        }
-
-    }
+    agent any
     stages {
         stage('Build image') {
             steps {
